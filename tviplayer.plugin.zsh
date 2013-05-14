@@ -36,3 +36,11 @@ function koalas {
         echo "No sprint defined"
     fi
 }
+
+function pandas {
+    if [ $1 ]; then
+        jiraa search "project = IPLAYER and component in ('Mobile iPlayer','Release Test','TV & iPlayer Categories','TV & iPlayer Configuration','TV & iPlayer Help & FAQ ','TV & iPlayer MVT','TV & iPlayer Playback','TV & iPlayer TV Guide','TV - BBC Four Collection','TV - Comedy') and status != Closed and fixVersion ='Sprint $1' and issuetype not in (subTaskIssueTypes())"
+    else
+        echo "No sprint defined"
+    fi
+}
