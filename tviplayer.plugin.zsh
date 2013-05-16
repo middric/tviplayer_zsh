@@ -4,6 +4,7 @@ alias sandbox='ssh root@192.168.192.10'
 alias svs='svn st | grep "style/stylesheets" -v'
 alias svd='svs | cut -b 3- | xargs svn diff'
 alias svr='open "/Applications/Google Chrome.app" $(svd | revue)'
+alias grr='open "/Applications/Google Chrome.app" $(git diff | revue)'
 alias fucking='sudo -E'
 
 function trunk {
