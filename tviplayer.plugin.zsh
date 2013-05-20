@@ -10,7 +10,7 @@ alias fucking='sudo -E'
 function gin() {
     message=$1
     branch=$(current_branch)
-    git commit --dry-run -m "${branch} ${message}"
+    git commit -m "${branch} ${message}"
 }
 
 function trunk {
