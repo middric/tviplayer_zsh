@@ -7,6 +7,12 @@ alias svr='open "/Applications/Google Chrome.app" $(svd | revue)'
 alias grr='open "/Applications/Google Chrome.app" $(git diff | revue)'
 alias fucking='sudo -E'
 
+function gin() {
+    message=$1
+    branch=$(current_branch)
+    git commit --dry-run -m "${branch} ${message}"
+}
+
 function trunk {
     branch trunk
 }
