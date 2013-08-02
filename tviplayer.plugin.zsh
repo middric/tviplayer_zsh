@@ -13,7 +13,7 @@ function sass_compile {
     if [ $1 ]; then
         cd ~/workspace/tviplayer/webapp/static-versioned
         sheet="$1"
-        sass --scss --compass -l -g --update sass/stylesheets/$sheet style/stylesheets/$sheet
+        sass --scss --compass --update sass/stylesheets/${sheet}:style/stylesheets/${sheet}
         cd - > /dev/null
     fi
 }
