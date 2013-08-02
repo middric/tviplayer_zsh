@@ -1,5 +1,7 @@
 alias v1='cd ~/workspace/tviplayer'
 alias v3='cd ~/workspace/iplayer'
+alias bamboo='cd ~/workspace/bamboo'
+alias nav='cd ~/workspace/tviplayernav'
 alias sandbox='ssh root@192.168.192.10'
 alias svs='svn st | grep "style/stylesheets" -v'
 alias svd='svs | cut -b 3- | xargs svn diff'
