@@ -14,35 +14,31 @@ function gin() {
 }
 
 # The full svn URL
-function svn_url {
+function _svn_url {
     if [[ -d .svn ]]; then
         svn info | sed -n s/URL:\ //p
     fi
 }
 
 # The svn URL without trunk or branches
-function svn_root {
+function _svn_root {
     if [[ -d .svn ]]; then
         root=$(pwd | sed -n 's:^.*/::p')
-        url=$(svn_url)
-        branch=$(echo $url | sed -n 's:'"$root"'/.*$:'"$root"'/:p')
-        echo $branch
+        echo $(_svn_url) | sed -n 's:'"$root"'/.*$:'"$root"':p'
     fi
 }
 
 # Create a branch and automatically switch to it
 function create_branch {
-    if [ $1 ]; then
+    branch_name=$1
+    if [ $branch_name ]; then
         if [[ -d .svn ]]; then
-            root=$(svn_root)
-            branch_name=$1
+            root=$(_svn_root)
             if [ $root ]; then
-                trunk=${root}trunk
-                branch=${root}branches/$1
-                echo "svn copy $trunk $branch -m \"Creating branch $branch_name\""
+                trunk=${root}/trunk
+                branch=${root}/branches/$branch_name
                 svn copy $trunk $branch -m "Creating branch $branch_name"
-                echo "svn switch $branch"
-                svn switch ${root}/branches/$1
+                svn switch $branch
             else
                 echo "Couldn't determine SVN root URL"
             fi
@@ -56,15 +52,13 @@ function create_branch {
 function delete_branch {
     if [ $1 ]; then
         if [[ -d .svn ]]; then
-            root=$(svn_root)
+            root=$(_svn_root)
             branch_name=$1
             if [ $root ]; then
-                branch = ${root}branches/$1
-                echo "svn rm $branch -m \"Removing branch $branch_name\""
+                branch=${root}/branches/$branch_name
                 svn rm $branch -m "Removing branch $branch_name"
-                if [ $branch = $(svn_url) ]; then
-                    trunk=${root}trunk
-                    echo "svn switch $trunk"
+                if [ $branch = $(_svn_url) ]; then
+                    trunk=${root}/trunk
                     svn switch $trunk
                 fi
             else
@@ -77,14 +71,12 @@ function delete_branch {
 }
 
 # Synchronise current branch with trunk (Doesn't commit the changes)
-function sync_branch {
+function sync_with_trunk {
     if [[ -d .svn ]]; then
-        url=$(svn_url)
+        url=$(_svn_url)
         if [[ $url =~ "branches" ]]; then
-            echo "svn up"
             svn up
-            trunk=$(svn_root)trunk
-            echo "svn merge $trunk"
+            trunk=$(_svn_root)/trunk
             svn merge $trunk
         else
             echo "Not in a branch, too risky!"
@@ -99,13 +91,12 @@ function trunk {
 function branch {
     if [[ -d .svn ]]; then
         if [ $1 ]; then
-            root=$(pwd | sed -n 's:^.*/::p')
-            url=$(svn_url)
+            url=$(_svn_url)
             dir="$1"
             if [ $1 != "trunk" ]; then
                 dir="branches/$1"
             fi
-            branch=$(echo $url | sed -n 's:'"$root"'/.*$:'"$root"'/'"$dir"':p')
+            branch=$(_svn_root)/$dir
             if [ $branch ]; then
                 svn switch $branch
             fi
