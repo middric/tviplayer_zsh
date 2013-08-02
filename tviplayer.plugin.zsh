@@ -9,6 +9,15 @@ alias svr='open "/Applications/Google Chrome.app" $(svd | revue)'
 alias grr='open "/Applications/Google Chrome.app" $(git diff | revue)'
 alias fucking='sudo -E'
 
+function sass_compile {
+    if [ $1 ]; then
+        cd ~/workspace/tviplayer/webapp/static-versioned
+        sheet="$1"
+        sass --scss --compass -l -g --update sass/stylesheets/$sheet style/stylesheets/$sheet
+        cd - > /dev/null
+    fi
+}
+
 function gin() {
     message=$1
     branch=$(current_branch)
