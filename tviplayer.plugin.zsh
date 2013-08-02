@@ -56,10 +56,13 @@ function delete_branch {
             branch_name=$1
             if [ $root ]; then
                 branch=${root}/branches/$branch_name
-                svn rm $branch -m "Removing branch $branch_name"
-                if [ $branch = $(_svn_url) ]; then
-                    trunk=${root}/trunk
-                    svn switch $trunk
+                read -p "Are you sure? " -n 1 -r
+                if [[ $REPLY =~ ^[Yy]$ ]]; then
+                    svn rm $branch -m "Removing branch $branch_name"
+                    if [ $branch = $(_svn_url) ]; then
+                        trunk=${root}/trunk
+                        svn switch $trunk
+                    fi
                 fi
             else
                 echo "Couldn't determine SVN root URL"
