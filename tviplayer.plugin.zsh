@@ -120,18 +120,19 @@ function branch {
     fi
 }
 
-function koalas {
+function _jiraa_sprint() {
     if [ $1 ]; then
-        jiraa search "project = IPLAYER and component in ('iPlayer v3', 'Release Test', 'TV & iPlayer Automated Build', 'TV & iPlayer Channel Homepage', 'TV & iPlayer Favourites', 'TV & iPlayer Frameworks', 'TV & iPlayer Interactions', 'TV & iPlayer iPlayer Homepage', 'TV & iPlayer Navigation', 'TV & iPlayer Playlists', 'TV & iPlayer Search Results','TV & iPlayer TV Homepage') and status != Closed and fixVersion = 'Sprint $1' and issuetype not in (subTaskIssueTypes())"
+        echo "Sprint $1"
+        jiraa search "project = 'iPlayer (TV & iPlayer)' AND filter = $2 and status != Closed and sprint = 'Sprint $1' and issuetype not in (subTaskIssueTypes())"
     else
-        echo "No sprint defined"
+        echo "Current sprint"
+        jiraa search "project = 'iPlayer (TV & iPlayer)' AND filter = $2 and status != Closed and sprint in openSprints() and issuetype not in (subTaskIssueTypes())"
     fi
 }
 
-function pandas {
-    if [ $1 ]; then
-        jiraa search "project = IPLAYER and component in ('Mobile iPlayer','Release Test','TV & iPlayer Categories','TV & iPlayer Configuration','TV & iPlayer Help & FAQ ','TV & iPlayer MVT','TV & iPlayer Playback','TV & iPlayer TV Guide','TV - BBC Four Collection','TV - Comedy') and status != Closed and fixVersion ='Sprint $1' and issuetype not in (subTaskIssueTypes())"
-    else
-        echo "No sprint defined"
-    fi
+function koalas {
+    _jiraa_sprint "$1" Koalas
+}
+function wombats {
+    _jiraa_sprint "$1" Wombats
 }
