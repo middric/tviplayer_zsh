@@ -122,10 +122,10 @@ function branch {
 function _jiraa_sprint() {
     if [ $1 ]; then
         echo "Sprint $1"
-        jiraa search "project = 'iPlayer (TV & iPlayer)' AND filter = $2 and status != Closed and sprint = 'Sprint $1' and issuetype not in (subTaskIssueTypes())"
+        jiraa search "project = 'iPlayer (TV & iPlayer)' AND filter = $2 and status != Closed and sprint = 'Sprint $1' and issuetype not in (subTaskIssueTypes()) ORDER BY status ASC"
     else
         echo "Current sprint"
-        jiraa search "project = 'iPlayer (TV & iPlayer)' AND filter = $2 and status != Closed and sprint in openSprints() and issuetype not in (subTaskIssueTypes())"
+        jiraa search "project = 'iPlayer (TV & iPlayer)' AND filter = $2 and status != Closed and sprint in openSprints() and issuetype not in (subTaskIssueTypes()) ORDER BY status ASC"
     fi
 }
 
