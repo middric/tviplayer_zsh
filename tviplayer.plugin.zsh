@@ -24,7 +24,9 @@ function gin {
         git checkout $BRANCH
         git rebase develop
         git stash pop
+        echo "\e[1;37m"
         read -q "REPLY?Push to origin?"
+        echo "\e[0m"
         case $REPLY in
             [Yy]*)
                 git push origin $BRANCH --force
@@ -36,7 +38,9 @@ function gin {
         ;;
     "delete")
         if [ $# -eq 2 ]; then
-            read -q "REPLY?Do you want to delete \"$2\"?"
+            echo "\e[1;37m"
+            read -q "REPLY?Do you want to delete \"origin/$2\"?"
+            echo "\e[0m"
             case $REPLY in
                 [Yy]*)
                     git push origin :$2
