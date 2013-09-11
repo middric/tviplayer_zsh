@@ -14,6 +14,23 @@ function sass_compile {
     fi
 }
 
+function gin {
+    case "$1" in
+    "sync")
+        BRANCH=`git symbolic-ref --short -q HEAD`
+        git stash
+        git checkout develop
+        git fetch upstream && git rebase upstream/develop
+        git checkout $BRANCH
+        git rebase develop
+        git stash pop
+        ;;
+    *)
+        echo "Usage: $0 {sync}"
+        exit 1
+    esac
+}
+
 function _jiraa_sprint() {
     if [ $1 ]; then
         echo "Sprint $1"
