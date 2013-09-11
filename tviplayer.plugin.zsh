@@ -24,6 +24,15 @@ function gin {
         git checkout $BRANCH
         git rebase develop
         git stash pop
+        read -q "REPLY?Push to origin?"
+        case $REPLY in
+            [Yy]*)
+                git push origin $BRANCH --force
+                ;;
+            [Nn]*)
+                exit
+                ;;
+        esac
         ;;
     "delete")
         if [ $# -eq 2 ]; then
