@@ -25,8 +25,23 @@ function gin {
         git rebase develop
         git stash pop
         ;;
+    "delete")
+        if [ $# -eq 2 ]; then
+            read -q "REPLY?Do you want to delete \"$2\"?"
+            case $REPLY in
+                [Yy]*)
+                    git push origin :$2
+                    ;;
+                [Nn]*)
+                    exit
+                    ;;
+            esac
+        fi
+        ;;
     *)
-        echo "Usage: $0 {sync}"
+        echo "Usage: $0 <command>\n"
+        echo "    sync              Synchronise your code with upstream/develop"
+        echo "    delete [branch]   Delete the [branch] in origin"
         exit 1
     esac
 }
