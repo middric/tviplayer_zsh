@@ -17,7 +17,7 @@ function sass_compile {
 
 function gin {
     case "$1" in
-    "sync")
+    sync)
         BRANCH=`git symbolic-ref --short -q HEAD`
         git stash
         git checkout develop
@@ -37,7 +37,7 @@ function gin {
                 ;;
         esac
         ;;
-    "delete")
+    delete)
         if [ $# -eq 2 ]; then
             echo "\e[1;37m"
             read -q "REPLY?Do you want to delete \"origin/$2\"?"
@@ -50,13 +50,15 @@ function gin {
                     exit
                     ;;
             esac
+        else
+            echo "Not enough arguments"
         fi
         ;;
     *)
         echo "Usage: $0 <command>\n"
         echo "    sync              Synchronise your code with upstream/develop"
         echo "    delete [branch]   Delete the [branch] in origin"
-        exit 1
+        exit
     esac
 }
 
