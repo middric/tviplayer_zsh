@@ -3,6 +3,7 @@ alias v3='cd ~/workspace/iplayer'
 alias bamboo='cd ~/workspace/bamboo'
 alias nav='cd ~/workspace/tviplayernav'
 alias sandbox='ssh root@192.168.192.10'
+alias sandbox6='ssh developer@sandbox.bbc.co.uk'
 alias fucking='sudo -E'
 
 function sass_compile {
