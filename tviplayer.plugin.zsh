@@ -33,7 +33,6 @@ function gin {
                 git push origin $BRANCH --force
                 ;;
             [Nn]*)
-                exit
                 ;;
         esac
         ;;
