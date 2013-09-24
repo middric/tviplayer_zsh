@@ -47,7 +47,6 @@ function gin {
                     git push origin :$2
                     ;;
                 [Nn]*)
-                    exit
                     ;;
             esac
         else
@@ -58,7 +57,6 @@ function gin {
         echo "Usage: $0 <command>\n"
         echo "    sync              Synchronise your code with upstream/develop"
         echo "    delete [branch]   Delete the [branch] in origin"
-        exit
     esac
 }
 
