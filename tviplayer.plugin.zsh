@@ -5,6 +5,36 @@ alias nav='cd ~/workspace/tviplayernav'
 alias sandbox='ssh root@192.168.192.10'
 alias sandbox6='ssh developer@sandbox.bbc.co.uk'
 alias fucking='sudo -E'
+alias h\?='history | grep'
+
+function reithproxies {
+    case "$1" in
+    on)
+        proxy=http://www-cache.reith.bbc.co.uk:80
+        git config --global http.proxy "${proxy}"
+        git config --global https.proxy "${proxy}"
+        ;;
+    off)
+        proxy=
+        git config --global --unset http.proxy
+        git config --global --unset https.proxy
+        ;;
+    *)
+        echo "Usage: $0 <command>\n"
+        echo "    on    Turn on reith proxies"
+        echo "    off   Turn off reith proxies"
+        exit
+    esac
+
+    export http_proxy=${proxy}
+    export https_proxy=${proxy}
+    export HTTP_PROXY=${proxy}
+    export HTTPS_PROXY=${proxy}
+    export proxy=${proxy}
+
+    echo "Proxies set to:"
+    echo "\e[1;37m\"${proxy}\"\e[0m"
+}
 
 function sass_compile {
     if [ $1 ]; then
