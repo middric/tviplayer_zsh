@@ -26,11 +26,24 @@ function reithproxies {
         exit
     esac
 
+    if [ $proxy ]; then
     export http_proxy=${proxy}
     export https_proxy=${proxy}
     export HTTP_PROXY=${proxy}
     export HTTPS_PROXY=${proxy}
+    export VAGRANT_HTTP_PROXY=${proxy}
+    export VAGRANT_HTTPS_PROXY=${proxy}
+    export VAGRANT_ENV_HTTP_PROXY=${proxy}
+    export VAGRANT_ENV_HTTPS_PROXY=${proxy}
+    export VAGRANT_APT_HTTP_PROXY=${proxy}
+    export VAGRANT_APT_HTTPS_PROXY=${proxy}
     export proxy=${proxy}
+    else
+        unset HTTP_PROXY
+        unset HTTPS_PROXY
+        unset http_proxy
+        unset https_proxy
+    fi
 
     echo "Proxies set to:"
     echo "\e[1;37m\"${proxy}\"\e[0m"
