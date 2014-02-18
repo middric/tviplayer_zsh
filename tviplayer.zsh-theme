@@ -1,6 +1,5 @@
-PROMPT=$'
-%{$fg[cyan]%}%/%{$reset_color%} $(git_prompt_info)
-%{$fg_bold[black]%}>%{$reset_color%} '
+PROMPT=$'%{$fg[cyan]%}%/%{$reset_color%} $(git_prompt_info)
+%{$fg_bold[white]%}»%{$reset_color%} '
 
 PROMPT2="%{$fg_blod[black]%}%_> %{$reset_color%}"
 
